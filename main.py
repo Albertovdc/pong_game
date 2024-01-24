@@ -35,7 +35,7 @@ while pong_on:
   screen.update()
   time.sleep(0.1)
   ball.move()
-  print(r_paddle.distance(ball))
+  print(ball.speed())
 
   # Ball detects a collision with wall
   if ball.ycor() > 280 or ball.ycor() < -280:
@@ -48,8 +48,11 @@ while pong_on:
   if l_paddle.distance(ball) < 100 and ball.xcor() == -350:
     ball.bounce_paddle()
 
-  if ball.xcor() > 300:
-    pass
-  if ball.ycor() < -300:
-    pass
+  if ball.xcor() > 400:
+    scoreboard.l_point()
+    ball.respawn()
+  if ball.xcor() < -400:
+    scoreboard.r_point()
+    ball.respawn()
+
 screen.exitonclick()
