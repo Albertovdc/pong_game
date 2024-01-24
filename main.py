@@ -1,5 +1,5 @@
 import time
-from turtle import Screen, Turtle
+from turtle import Screen
 from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
@@ -33,25 +33,27 @@ screen.onkey(l_paddle.move_down, "s")
 pong_on = True
 while pong_on:
   screen.update()
-  time.sleep(0.1)
+  time.sleep(ball.move_speed)
   ball.move()
-  print(ball.speed())
+
 
   # Ball detects a collision with wall
   if ball.ycor() > 280 or ball.ycor() < -280:
     ball.bounce()
-
+  print(ball.distance(r_paddle))
+  print(ball.xcor())
   # Ball detects a collision with paddle
-  if r_paddle.distance(ball) < 100 and ball.xcor() == 350:
+  if ball.distance(r_paddle) < 50 and ball.xcor() > 350 or ball.distance(l_paddle) < 50 and ball.xcor() < -350:
     ball.bounce_paddle()
 
-  if l_paddle.distance(ball) < 100 and ball.xcor() == -350:
-    ball.bounce_paddle()
+  # if ball.distance(l_paddle) < 40 and ball.xcor() < -350:
+  #   ball.bounce_paddle()
 
-  if ball.xcor() > 400:
+  # Points
+  if ball.xcor() > 380:
     scoreboard.l_point()
     ball.respawn()
-  if ball.xcor() < -400:
+  if ball.xcor() < -380:
     scoreboard.r_point()
     ball.respawn()
 
